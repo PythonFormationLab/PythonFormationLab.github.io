@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Les itérateurs et les générateurs - Python site</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://JulieDjidji.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://JulieDjidji.github.io/fondations/chapter2/5-generateurs/">
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Python site</h1>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/about/">Références python</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Les itérateurs et les générateurs</h1>
+
+<p>On utilise régulièrement des itérables, c&rsquo;est-à-dire des séquences que nous parcourons telles que des listes ou des dictionnaires, pour effectuer itérativement des actions à l&rsquo;aide d&rsquo;une boucle <em>for</em>. Or, le contenu de ces itérables, qui peut pourtant occuper une place importante en mémoire, n&rsquo;est utile que ponctuellement pour l&rsquo;action à effectuer lors de l&rsquo;itération associée à sa valeur. Avant et après l&rsquo;itération i, la valeur de l&rsquo;itérable associée à cette itération i ne sert à rien. Tout l&rsquo;intérêt de l&rsquo;itérateur est là : il permet <em>grosso modo</em> de ne connaître cette valeur qu&rsquo;au moment de l&rsquo;itération i !</p>
+
+<h2 id="les-itérateurs">Les itérateurs</h2>
+
+<p>Les listes, les dictionnaires, les ensembles ou même les chaînes de caractères sont des itérables. On peut en effet itérer selon ces séquences. Un <strong>itérateur</strong> est un curseur permettant de se déplacer d&rsquo;élément en élément au sein de l&rsquo;itérable.</p>
+
+<p>Son principal avantage est son faible coût en termes de mémoire. Celui peut par exemple se mesurer dans une faible mesure avec les instructions suivantes :</p>
+
+<pre><code class="language-python">import sys
+n=10000
+element=list(range(n))
+print(sys.getsizeof(element))
+print(sys.getsizeof(iter(element)))
+</code></pre>
+
+<p>Evidemment, plus l&rsquo;itérable est long/gros, plus les différences de mémoire occupées sont importantes. En revanche, malgré l&rsquo;augmentation du nombre d&rsquo;éléments dans l&rsquo;itérateur, comme ces éléments ne sont pas en mémoire, l&rsquo;itérateur ne nécessite pas de ressources supplémentaires. Afin d&rsquo;illustrer ce propos, vous pouvez faire varier n dans le code ci-dessus. Cette différence s&rsquo;explique par le fait que les éléments de l&rsquo;itérateur ne sont <strong>pas stockés en mémoire</strong>.</p>
+
+<p>En pratique, quand on réalise une boucle sur la liste <em>[1,2,3,4,5]</em>, avant d&rsquo;exécuter par itération les instructions présentes au sein de la boucle, python commence par transformer cette liste en itérateur avec la commande suivante :</p>
+
+<pre><code class="language-python">iterateur = iter([1,2,3,4,5])
+</code></pre>
+
+<p>On peut d&rsquo;ailleurs parcourir les éléments de l&rsquo;itérateur avec la fonction <em>next</em>. Faites alors tourner 4 fois l&rsquo;instruction suivante :</p>
+
+<pre><code class="language-python">next(iterateur)
+</code></pre>
+
+<p>Lorsque l&rsquo;itérateur est complètement parcouru, l&rsquo;instruction <em>next</em> lève une exception de type <em>StopIteration</em>. On n&rsquo;a donc pas besoin de connaître le nombre d&rsquo;éléments de l&rsquo;itérateur pour le parcourir au sein d&rsquo;une boucle <em>for</em>. Toutefois, un itérateur peut être parcouru une seule fois.</p>
+
+<p>L&rsquo;itérateur le plus connu : <strong>range</strong> ! Il permet de parcourir une séquences d&rsquo;entiers en précisant le premier élément, le dernier et le pas d&rsquo;incrémentation.</p>
+
+<p><ins>Exemple 1</ins> : Créer une liste d&rsquo;entiers de 4 à 16 inclus avec seulement les chiffres pairs. Visualiser cette liste.</p>
+
+<script>
+function myFunction1() {
+    var x = document.getElementById("exemple1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction1()">Voir résultat</button></p>
+
+<div id="exemple1" hidden>
+<div></div>
+
+<pre><code class="language-python">pairs=range(4,17,2)
+</code></pre>
+
+<pre><code class="language-python">for i in pairs :
+    print(i, end=' ')
+</code></pre>
+
+<p></div></p>
+
+<h2 id="les-générateurs">Les générateurs</h2>
+
+<p>Un <strong>générateur</strong> permet de créer facilement un itérateur. Au sein d&rsquo;une fonction, il suffit en apparence de remplacer le <em>return</em> par le terme <em>yield</em>. Seulement en apparence toutefois ! En effet, si un <em>return</em> renvoie une valeur ou un ensemble de valeurs et termine la fonction, un <em>yield</em> retourne la valeur et se met en pause jusqu&rsquo;à l&rsquo;appel suivant. Ainsi, à chaque appel d&rsquo;un élément du générateur avec la fonction <em>next</em>, le code est exécuté jusqu&rsquo;au prochain <em>yield</em>.</p>
+
+<p>Comme les itérateurs, les générateurs consomment peu de ressources mémoire car une valeur est générée dès qu&rsquo;elle est demandée au générateur (avec la fonction <em>next</em> par exemple) et elle sera retournée. Rien n&rsquo;est stocké en mémoire.</p>
+
+<p>Prenons un exemple (certes peu pertinent) qui crée un premier générateur en parcourant une chaîne de caratère</p>
+
+<pre><code class="language-python">def voyelle(chaine) :
+    for i in chaine:
+        if i.lower() in ['a','e','i','o','u','y']:
+            yield i
+</code></pre>
+
+<pre><code class="language-python">for i in voyelle(&quot;Je fais mon premier test d'itérateur pour comprendre comment cela marche au cours de la formation python&quot;):
+    print(i)
+</code></pre>
+
+<p><ins>Exemple 2</ins> : Créer un générateur qui extraie les mots d&rsquo;une chaîne de caractères. Supprimer les apostrophes et les points et passer en minuscule. Afficher le résultat du générateur pour observer le résultat.</p>
+
+<script>
+function myFunction2() {
+    var x = document.getElementById("exemple2");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction2()">Voir résultat</button></p>
+
+<div id="exemple2" hidden>
+<div></div>
+
+<pre><code class="language-python">def decoupage_mot(chaine) :
+    for i in chaine.split():
+        if re.search(&quot;'&quot;, i):
+            yield i.replace(&quot;.&quot;,&quot;&quot;).lower().split(&quot;'&quot;)[1]
+        else:
+            yield i.replace(&quot;.&quot;,&quot;&quot;).lower()
+</code></pre>
+
+<pre><code class="language-python">mot=decoupage_mot(&quot;Je fais mon premier test d'itérateur pour comprendre comment cela marche au cours de la formation python.&quot;)
+next(mot)
+</code></pre>
+
+<pre><code class="language-python">for i in decoupage_mot(&quot;Je fais mon premier test d'itérateur pour comprendre comment cela marche au cours de la formation python.&quot;):
+    print(i)
+</code></pre>
+
+<p></div></p>
+<div class="edit-meta">Last updated on 18 Mar 2019 / Published on 18 Mar 2019<br></div><nav class="pagination"><a class="nav nav-prev" href="/fondations/chapter2/4-sets/" title="Les sets"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Les sets</a>
+<a class="nav nav-next" href="/fondations/chapter3/" title="Chapitre 3 : Lecture, écriture et fermeture des fichiers">Next - Chapitre 3 : Lecture, écriture et fermeture des fichiers <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://JulieDjidji.github.io/">Home</a></li>
+
+<li class=""><a href="/getting-started/">Préparer le terrain : installer python</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/fondations/">Poser les fondations</a>
+<ul class="sub-menu">
+
+<li class=""><a href="/fondations/chapter1/">Chapitre 1 : La syntaxe</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/fondations/chapter2/">Chapitre 2 : Quels objets en python ?</a>
+<ul class="sub-menu">
+</ul>
+  
+</li>
+
+<li class=""><a href="/fondations/chapter3/">Chapitre 3 : Lecture, écriture et fermeture des fichiers</a>
+</li>
+
+<li class=""><a href="/fondations/chapter4/">Chapitre 4 : Les packages en python</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/explorer/">Explorer les données</a>
+<ul class="">
+
+<li class=""><a href="/explorer/chapter1/">Chapitre 1 : Manipuler les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter2/">Chapitre 2 : Visualiser les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter3/">Chapitre 3 : Manipuler et visualiser des données géographiques</a>
+</li>
+
+<li class=""><a href="/explorer/chapter4/">Chapitre 4 : Modéliser</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/project/">Réaliser un mini projet</a>
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

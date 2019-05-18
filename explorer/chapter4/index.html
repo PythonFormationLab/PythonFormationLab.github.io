@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Chapitre 4 : Modéliser - Python site</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://JulieDjidji.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://JulieDjidji.github.io/explorer/chapter4/">
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Python site</h1>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/about/">Références python</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Chapitre 4 : Modéliser</h1>
+
+<p>Qui dit <em>Machine Learning</em> dit algorithme entraîné à partir de données afin de prédire un résultat sur un nouveau jeu de données. Cette branche de l&rsquo;intelligence artificielle se différencie de l&rsquo;économétrie notamment à travers leurs objectifs : si l&rsquo;économétrie s&rsquo;attache à comprendre les phénomènes en s&rsquo;appuyant sur des modèles explicatifs et recherchant à évaluer la causalité de x sur y, le <em>Machine Learning</em> se focalise sur un simple objectif prédictif en exploitant les relations de corrélations entre les variables.</p>
+
+<p>Voici un schéma usuel qui donne un premier aperçu des différentes méthodes de <em>Machine Learning</em> :</p>
+
+<p align="center">
+<img src="../../images/MachineLearningMethods.jpg" alt="MachineLearningMethods" width="800" height="400"/>
+</p>
+
+<p><strong>Mais comment choisir entre les modèles ?</strong></p>
+
+<p>Ce tutoriel vise à expérimenter l&rsquo;implémentation de quelques méthodes de <em>Machine Learning</em> en python sans founir les explications théoriques de ces méthodes. Toutefois, même s&rsquo;il ne dispense pas de comprendre les différentes méthodes, on peut quand même s&rsquo;appuyer sur ce schéma simplifié pour orienter nos choix de modèle :</p>
+
+<p align="center">
+<a href="http://www.7wdata.be/wp-content/uploads/2017/04/CheatSheet.png">
+<img src="../../images/ChoixMethodesMachineLearning.jpg" alt="ChoixMethodesMachineLearning" width="800" height="400"/>
+</a>
+</p>
+
+<p>On peut aussi s&rsquo;appuyer sur le <a href="http://1.bp.blogspot.com/-ME24ePzpzIM/UQLWTwurfXI/AAAAAAAAANw/W3EETIroA80/s1600/drop_shadows_background.png"><em>cheatsheet</em> de <em>scikit-learn</em></a>. Enfin, afin de comprendre le fonctionnement intuitif de chaque méthode, il peut être utile de consulter un cours de <em>Machine Learning</em>.</p>
+
+<p>Le site <a href="https://machinelearningmastery.com/machine-learning-algorithms-mini-course/"><em>Machine Learning Mastery</em></a> propose des explications intuitives sur les principales méthodes de <em>Machine Learning</em>. Le livre <a href="https://perso.limsi.fr/annlor/enseignement/ensiie/Intro_ML_Python.pdf"><em>Introduction to Machine Learning with Python</em></a> fournit quelques explications sur de nombreux algorithmes et précise le code python nécessaire pour les mettre en oeuvre.</p>
+
+<h2 id="i-commencer-par-prédire-une-variable-catégorielle-binaire-un-problème-de-classification">I) Commencer par prédire une variable catégorielle binaire : un problème de classification</h2>
+
+<p>Pour réaliser ce tutoriel, on a enrichi les données précédentes avec des données socio-démographiques. On met donc à disposition une base, nommée <em>tableModelisation</em>, contenant les villes de plus de 20 000 habitants. Une indicatrice, nommée <em>plus50</em>, constituée à partir de la présence de l&rsquo;absence de la ville dans la table de l&rsquo;<em>isf</em> manipulée précédemment, indique si plus de 50 redevables paient l&rsquo;<em>isf</em> dans la ville. Vous pouvez consulter le  dictionnaire des données qui s&rsquo;appelle <em>Dictionnaire_tableModelisation</em>.</p>
+
+<p>La modélisation sera réalisée à partir des prédicteurs socio-démographiques suivants :</p>
+
+<ul>
+<li>la proportion de résidences principales de type maison (<em>P15_RPMAISON</em>),</li>
+<li>la proportion de résidences principales de moins de 30 m² (<em>P15_RP_M30M2</em>),</li>
+<li>la proportion de résidences principales de 30 à moins de 60 m² (<em>P15_RP_3060M2</em>),</li>
+<li>la proportion de résidences principales de 80 à moins de 100 m² (<em>P15_RP_80100M2</em>),</li>
+<li>la proportion de résidences principales de 100 m² ou plus (<em>P15_RP_100M2P</em>),</li>
+<li>la proportion de familles monoparentales (<em>C15_FAMMONO</em>),</li>
+<li>la proportion de familles formées d&rsquo;un couple sans enfant (<em>C15_COUPSENF</em>),</li>
+<li>la proportion de personnes non scolarisées de 15 ans ou plus titulaires d&rsquo;aucun diplôme ou au plus un BEPC, brevet des collèges ou DNB (<em>P15_NSCOL15P_DIPLMIN</em>),</li>
+<li>la proportion de personnes non scolarisées de 15 ans ou plus titulaires d&rsquo;un CAP ou d&rsquo;un BEP (<em>P15_NSCOL15P_CAPBEP</em>),</li>
+<li>la proportion de personnes non scolarisées de 15 ans ou plus titulaires d&rsquo;un diplôme de l&rsquo;enseignement supérieur (<em>P15_NSCOL15P_SUP</em>).</li>
+</ul>
+
+<h4 id="1-préparer-ses-données">1) Préparer ses données</h4>
+
+<p><ins><strong>Exercice 1</strong></ins> : Vérifier qu&rsquo;il n&rsquo;y a pas de valeurs manquantes dans la base de données</p>
+
+<script>
+function myFunction1() {
+    var x = document.getElementById("App1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction1()">Voir résultat</button></p>
+
+<div id="App1" hidden>
+<div></div>
+
+<pre><code class="language-python"># Solution 1 :
+tableMod[np.any(tableMod[['plus50','P15_NSCOL15P_DIPLMIN', 'P15_NSCOL15P_CAPBEP', 'P15_NSCOL15P_SUP',
+'C15_FAMMONO', 'C15_COUPSENF',
+'P15_RPMAISON', 'P15_RP_M30M2', 'P15_RP_3060M2', 'P15_RP_80100M2', 'P15_RP_100M2P']].isna().values, axis=1)]
+
+# Solution 2 :
+tableMod[np.any(tableMod[['plus50','P15_NSCOL15P_DIPLMIN', 'P15_NSCOL15P_CAPBEP', 'P15_NSCOL15P_SUP',
+'C15_FAMMONO', 'C15_COUPSENF',
+'P15_RPMAISON', 'P15_RP_M30M2', 'P15_RP_3060M2', 'P15_RP_80100M2', 'P15_RP_100M2P']].isna().sum()
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 2</strong></ins> : Observer la répartition de chaque variable</p>
+
+<script>
+function myFunction2() {
+    var x = document.getElementById("App2");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction2()">Voir résultat</button></p>
+
+<div id="App2" hidden>
+<div></div>
+
+<pre><code class="language-python">from pandas.plotting import scatter_matrix
+scatter_matrix=scatter_matrix(z, alpha=0.9, figsize=(9, 9), diagonal='hist')
+for ax in scatter_matrix.ravel():
+    ax.set_xlabel(ax.get_xlabel(), fontsize = 6, rotation = 90)
+    ax.set_ylabel(ax.get_ylabel(), fontsize = 6, rotation = 0)
+plt.tight_layout(pad=0.01)
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 3</strong></ins> : Séparer les données entre échantillon d&rsquo;apprentissage et échantillon de test. Pourquoi est-ce utile ?</p>
+
+<script>
+function myFunction3() {
+    var x = document.getElementById("App3");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction3()">Voir résultat</button></p>
+
+<div id="App3" hidden>
+<div></div>
+
+<pre><code class="language-python">from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(tableModelisation[['P15_NSCOL15P_DIPLMIN', 'P15_NSCOL15P_CAPBEP', 
+               'P15_NSCOL15P_SUP', 'C15_FAMMONO', 'C15_COUPSENF', 'P15_RPMAISON', 'P15_RP_M30M2', 'P15_RP_3060M2', 
+               'P15_RP_80100M2', 'P15_RP_100M2P']], tableModelisation['plus50'], test_size=0.33, random_state=42)
+</code></pre>
+
+<p>L&rsquo;utilisation d&rsquo;un échantillon d&rsquo;apprentissage et d&rsquo;un échantillon de test permet de réduire les risques de <strong>sur-apprentissage</strong> (<em>overfitting</em>), c&rsquo;est-à-dire d&rsquo;opter pour un modèle qui colle trop parfaitement aux données. Ainsi, choisir son modèle, estimé à partir de l&rsquo;échantillon d&rsquo;apprentissage, en l&rsquo;évaluant sur un échantillon de test permet de se prémunir contre ce risque.</p>
+
+<p>Afin de construire un modèle pertinent, la varaible à prédire doit être bien représentée dans les deux échantillons. Plus particulièrement, lorsqu&rsquo;une modalité de la variable à prédire est rare, il faut s&rsquo;assurer qu&rsquo;elle soit présente dans les échantillons d&rsquo;apprentissage et de test.</p>
+
+<p>Par ailleurs, selon la même logique, il peut être utile de se constituer un échantillon de validation si on dispose de paramètres à ajuster.</p>
+
+<p>Toutefois, comme nous venons de l&rsquo;évoquer la séparation entre échantillon d&rsquo;apprentissage sur lequel on estime le modèle et échantillon de test sur lequel on évalue le modèle est indispensable afin d&rsquo;éviter le sur-apprentissage mais elle implique mécaniquement un entraîenement du modèle sur un jeu de données restreint avec un risque de biais par entraînement du modèle sur un jeu de données potentiellement spécifique et non représentatif de la population complète. Cette séparation est d&rsquo;autant plus problématique lorsque le jeu de données est petit. La <strong>validation croisée</strong> peut permettre de satisfaire la contrainte de séparation entre apprentissage et évaluation et l&rsquo;ambition de ne pas se restreindre par hasard à une population spécifique. Cela consiste à découper le jeu de données en k sous ensembles et à utiliser respectivement ces k sous-ensembles comme échantillon de test alors que les k-1 restantes sont utisées pour entraîner le modèle. Dans le cadre de la validation croisée, la performance globale du modèle est évaluée soit en utilisant l&rsquo;ensemble des prédictions sur le jeu de données complet réalisées sur les échantillons de test respectifs au cours de la procédure, soit en effectuant une moyenne des performances des modèles sur les k échantillons de test.
+</div></p>
+
+<p><ins><strong>Exercice 4</strong></ins> : Les trois variables issues de la table sur l&rsquo;<em>isf</em> (le nombre de redevables, le patrimoine moyen et l&rsquo;impôt moyen) sont manquantes pour les villes où ce nombre est inférieur à 50. Si ces valeurs manquantes étaient aléatoires, comment auriez-vouspu les imputer ?</p>
+
+<script>
+function myFunction4() {
+    var x = document.getElementById("App4");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction4()">Voir résultat</button></p>
+
+<div id="App4" hidden>
+<div></div>
+
+<p><em>Scikit-learn</em> offre plusieurs stratégies d&rsquo;imputation présentées globalement sur leur site sous ce <a href="https://scikit-learn.org/stable/modules/impute.html">lien</a> ou sur ce <a href="https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html">lien</a> qui présente les options de la fonction <em>SimpleImputer</em>.</p>
+
+<p>Si les valeurs manquantes relatives aux trois variables résultaient d&rsquo;un processus aléatoire, et non issues du fait qu&rsquo;il manquait car le nombre de redevables était inférieur à 50, alors on pourrait imputer les valeurs manquantes à leur moyenne avec le code ci-dessous par exemple :</p>
+
+<pre><code class="language-python">from sklearn.impute import SimpleImputer
+imp_mean = SimpleImputer(missing_values=np.nan, strategy='mean')
+donnees_imputees=pd.DataFrame(imp_mean.fit_transform(tableModelisation[['nombre de redevables', 'patrimoine moyen en €', 'impôt moyen en €']]), columns=['nombre de redevables', 'patrimoine moyen en €', 'impôt moyen en €'])
+donnees_imputees.head(2)
+</code></pre>
+
+<p>On pourrait aussi envisager d&rsquo;utiliser la fonction <em>fillna</em> de <em>pandas</em>. Une autre solution serait de construire un modèle de prédiction pour chaque variable contenant des valeurs manquantes et de remplacer les valeurs manquantes par la valeur prédite.
+</div></p>
+
+<p><ins><strong>Exercice 5</strong></ins> : Pourquoi est-il préférable, voire impératif, de redimensionner (normaliser et/ou standardiser) les données ?</p>
+
+<script>
+function myFunction5() {
+    var x = document.getElementById("App5");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction5()">Voir résultat</button></p>
+
+<div id="App5" hidden>
+<div></div>
+
+<p>Plusieurs raisons peuvent justifier le redimensionnement des données (<em>feature scaling</em>) :</p>
+
+<ul>
+<li><p>le <em>feature scaling</em> permet d&rsquo;éviter les problèmes d’échelles, notamment problématiques lors du calcul de distance entre deux points. Par exemple, si une variable comprend des données très dipersées tandis que les autres prennent des valeurs comprises entre 0 et 1, ces dernières valeurs risquent d&rsquo;être non significatives dans le calcul de la distance euclidienne. L&rsquo;algorithme est alors seulement influencé par la première dimension.</p></li>
+
+<li><p>le <em>feature scaling</em> favorise la convergence lors de la descente de gradient. Une trop grande différence d’ordre de grandeur entre les variables perturbe la convergence du modèle, comme l&rsquo;indique notamment cet <a href="https://mrmint.fr/data-preprocessing-feature-scaling-python">article</a>. Plus précisément, pour les algorithmes qui reposent sur une minimisation d&rsquo;une fonction de coût par descente de gradient, conserver des données avec des ordres de grandeurs très différents entraîne des différences de vitesses de convergence des paramètres. Dans ce cas, la minimisation de la fonction de coût est plus lente et la descente de gradient met donc plus de temps à trouver le modèle optimal.</p></li>
+</ul>
+
+<p>Par exemple, le <em>feature scaling</em> s&rsquo;avère indispensable dans les cas suivants :</p>
+
+<ul>
+<li>lorsque des paramètres sont calculés à partir d&rsquo;une descente de gradient, comme dans le cas de la régression linéaire, la régression polynomiale, la régression logistique &hellip;</li>
+<li>lorsque le degré de similarité entre deux observations s&rsquo;appuie sur un calcul de distance comme dans le cas des k-plus-proches voisins</li>
+<li>avec des méthodes de <em>clustering</em> comme le <em>kmeans</em>
+</div></li>
+</ul>
+
+<p><ins><strong>Exercice 6</strong></ins> : Citez deux grandes méthodes de redimensionnement et mettez les en oeuvre</p>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script>
+function myFunction6() {
+    var x = document.getElementById("App6");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+
+<p><button onclick="myFunction6()">Voir résultat</button></p>
+
+<div id="App6" hidden>
+<div></div>
+
+<ul>
+<li>La <strong>standardisation</strong> consiste à centrer et réduire les données. En théorie, les variables suivent une distribution normale avec des moyennes et des écart-types différents puis suite à la standardisation, elles suivent une loi normale centrée réduite. En pratique,la distribution des variables est généralement inconnue.</li>
+</ul>
+
+<pre><code class="language-python">from sklearn import preprocessing
+scaler = preprocessing.StandardScaler().fit(X_train)
+X_train_standardise=scaler.transform(X_train)
+</code></pre>
+
+<pre><code class="language-python"># On s'assure que les données sont bien de même dimension
+print(X_train.shape)
+print(X_train_standardise.shape)
+</code></pre>
+
+<pre><code class="language-python"># On applique la standardisation à l'échantillon de test
+X_test_standardise=scaler.transform(X_test)
+</code></pre>
+
+<ul>
+<li>La normalisation <strong>min-max</strong> consiste à restreindre l&rsquo;intervalle des données à [0,1] par la formule suivante :</li>
+</ul>
+
+<p>
+<div class="MathJax_Display" style="text-align: center;"><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;><msub><mi>X</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mtext>minmax</mtext></mrow></msub><mo>=</mo><mfrac><mrow><mi>X</mi><mo>&amp;#x2212;</mo><msub><mi>X</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo movablelimits=&quot;true&quot; form=&quot;prefix&quot;>min</mo></mrow></msub></mrow><mrow><msub><mi>X</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo movablelimits=&quot;true&quot; form=&quot;prefix&quot;>max</mo></mrow></msub><mo>&amp;#x2212;</mo><msub><mi>X</mi><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo movablelimits=&quot;true&quot; form=&quot;prefix&quot;>min</mo></mrow></msub></mrow></mfrac></math>" role="presentation" style="text-align: center; position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 12.801em; display: inline-block;"><span style="display: inline-block; position: relative; width: 10.658em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(0.658em, 1010.66em, 3.217em, -999.997em); top: -2.199em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="msubsup" id="MathJax-Span-3"><span style="display: inline-block; position: relative; width: 3.396em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.84em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-4" style="font-family: MathJax_Math-italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.836em;"><span class="texatom" id="MathJax-Span-5"><span class="mrow" id="MathJax-Span-6"><span class="mtext" id="MathJax-Span-7" style="font-size: 70.7%; font-family: MathJax_Main;">minmax</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-8" style="font-family: MathJax_Main; padding-left: 0.301em;">=</span><span class="mfrac" id="MathJax-Span-9" style="padding-left: 0.301em;"><span style="display: inline-block; position: relative; width: 5.658em; height: 0px; margin-right: 0.122em; margin-left: 0.122em;"><span style="position: absolute; clip: rect(3.158em, 1004.17em, 4.348em, -999.997em); top: -4.64em; left: 50%; margin-left: -2.08em;"><span class="mrow" id="MathJax-Span-10"><span class="mi" id="MathJax-Span-11" style="font-family: MathJax_Math-italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-12" style="font-family: MathJax_Main; padding-left: 0.241em;">−</span><span class="msubsup" id="MathJax-Span-13" style="padding-left: 0.241em;"><span style="display: inline-block; position: relative; width: 2.086em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.84em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-14" style="font-family: MathJax_Math-italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.836em;"><span class="texatom" id="MathJax-Span-15"><span class="mrow" id="MathJax-Span-16"><span class="mo" id="MathJax-Span-17" style="font-size: 70.7%; font-family: MathJax_Main;">min</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.158em, 1005.54em, 4.348em, -999.997em); top: -3.271em; left: 50%; margin-left: -2.795em;"><span class="mrow" id="MathJax-Span-18"><span class="msubsup" id="MathJax-Span-19"><span style="display: inline-block; position: relative; width: 2.205em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.84em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-20" style="font-family: MathJax_Math-italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.836em;"><span class="texatom" id="MathJax-Span-21"><span class="mrow" id="MathJax-Span-22"><span class="mo" id="MathJax-Span-23" style="font-size: 70.7%; font-family: MathJax_Main;">max</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-24" style="font-family: MathJax_Main; padding-left: 0.241em;">−</span><span class="msubsup" id="MathJax-Span-25" style="padding-left: 0.241em;"><span style="display: inline-block; position: relative; width: 2.086em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.84em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-26" style="font-family: MathJax_Math-italic;">X<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.836em;"><span class="texatom" id="MathJax-Span-27"><span class="mrow" id="MathJax-Span-28"><span class="mo" id="MathJax-Span-29" style="font-size: 70.7%; font-family: MathJax_Main;">min</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(0.836em, 1005.66em, 1.253em, -999.997em); top: -1.307em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 5.658em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.074em;"></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.205em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -1.068em; border-left: 0px solid; width: 0px; height: 2.789em;"></span></span></nobr><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi>X</mi><mrow class="MJX-TeXAtom-ORD"><mtext>minmax</mtext></mrow></msub><mo>=</mo><mfrac><mrow><mi>X</mi><mo>−</mo><msub><mi>X</mi><mrow class="MJX-TeXAtom-ORD"><mo movablelimits="true" form="prefix">min</mo></mrow></msub></mrow><mrow><msub><mi>X</mi><mrow class="MJX-TeXAtom-ORD"><mo movablelimits="true" form="prefix">max</mo></mrow></msub><mo>−</mo><msub><mi>X</mi><mrow class="MJX-TeXAtom-ORD"><mo movablelimits="true" form="prefix">min</mo></mrow></msub></mrow></mfrac></math></span></span></div>
+</p>
+
+<pre><code class="language-python">from sklearn import preprocessing
+min_max_scaler = preprocessing.MinMaxScaler().fit(X_train)
+X_train_minmax = min_max_scaler.transform(X_train)
+</code></pre>
+
+<pre><code class="language-python"># On s'assure que les données sont bien de même dimension
+print(X_train.shape)
+print(X_train_minmax.shape)
+</code></pre>
+
+<pre><code class="language-python"># On applique le min-max à l'échantillon de test
+X_test_minmax=scaler.transform(X_test)
+</code></pre>
+
+<p>D&rsquo;autres méthodes de normalisation des données sont implémentées dans <em>scikit-learn</em>, vous pouvez les consulter sur leur <a href="https://scikit-learn.org/stable/modules/preprocessing.html">site</a>.
+</div></p>
+
+<h4 id="2-choisir-et-tester-différentes-méthodes">2) Choisir et tester différentes méthodes</h4>
+
+<p>Avec la standardisation, vous venez de vous découvrir la logique d&rsquo;implémentation de <em>scikit-learn</em>. Détaillons la <strong>structure du code</strong> pour implémenter un algorithme de <em>Machine Learning</em> avec <em>scikit-learn</em> :</p>
+
+<p align="center">
+<img src="../../images/StructureCodeSklearn.jpg" alt="StructureCodeSklearn" width="500" height="200"/>
+</p>
+
+<p>Le <em>transform</em> permet d&rsquo;appliquer une transformation à un jeu de données pour modifier ces dernières. Pour la standardidation, la fonction <em>fit</em> estime la moyenne et l&rsquo;écart-type sur un jeu de données, ici l&rsquo;échantillon d&rsquo;apprentissage, puis la fonction <em>transform</em> centre et réduit les données indiquées en paramètre (soit l&rsquo;échantillon d&rsquo;apprentissage, soit l&rsquo;échantillon de test dans notre exemple). Notons qu&rsquo;il est possible d&rsquo;effectuer les étapes d&rsquo;estimation (<em>fit</em>) et de transformation du jeu de données (<em>transform</em>) en une seule étape grâce à a fonction <em>fit_transform</em>.</p>
+
+<p>Le <em>predict</em> prédit la valeur de la variable cible. Par exemple, avec le modèle de régression logistique, le <em>predict</em> estimera à partir du modèle pré-entrainé avec le <em>fit</em>, les labels associés au jeu de données, dans notre cas à l&rsquo;échantillon de test.</p>
+
+<p><ins>Exercice 7</ins> : Appliquer une régression logistique</p>
+
+<p>N&rsquo;hésitez pas à consulter l&rsquo;aide détaillée de <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html"><em>scikit-learn</em></a> relative à la régression logitique.</p>
+
+<script>
+function myFunction7() {
+    var x = document.getElementById("App7");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction7()">Voir résultat</button></p>
+
+<div id="App7" hidden>
+<div></div>
+
+<pre><code class="language-python">from sklearn.linear_model import LogisticRegression
+clf_logistic = LogisticRegression(solver='liblinear')
+clf_logistic.fit(X_train_standardise, np.array(y_train))
+</code></pre>
+
+<pre><code class="language-python">y_test_logistic_predit = clf_logistic.predict(X_test_standardise)
+print(y_test_logistic_predit.shape)
+</code></pre>
+
+<p></div></p>
+
+<p><ins>Exercice 8</ins> : Puis appliquer un Support Vector Machine (SVM) ?</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Un petit zoom sur les SVM</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Les <em>Vector Support machine</em> (SVM) visent à séparer linéairement les observations dans un espace de très grande dimension. Selon le principe schématisé sur la Figure ci-dessous, cet espace de grande dimension résulte de la transformation <span class="mi" id="MathJax-Span-3" style="font-family: MathJax_Math; font-style: italic;">ϕ</span>, potentiellement non linéaire, de l&rsquo;espace des variables d&rsquo;origine. Une transformation non linéaire, réalisée via une fonction noyau <span class="mi" id="MathJax-Span-3" style="font-family: MathJax_Math; font-style: italic;">ϕ</span>, peut ainsi favoriser la séparation linéaire des observations dans le nouvel espace. <p align="center"><img src="../../images/TransformationSVM.jpg" alt="TransformationSVM" width="300" height="150"/></p></td>
+</tr>
+
+<tr>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+
+<script>
+function myFunction8() {
+    var x = document.getElementById("App8");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction8()">Voir résultat</button></p>
+
+<div id="App8" hidden>
+<div></div>
+
+<pre><code class="language-python">from sklearn import svm
+clf_svm = svm.kernel='linear', probability=True)
+clf_svm.fit(X_train_standardise, y_train)
+</code></pre>
+
+<p>L&rsquo;option <em>probability=True</em> permet d&rsquo;obtenir par la suite les probabilités d&rsquo;appartenance à chaque label. Le paramètre étant par défaut mis à <em>False</em>, les probabilités ne sont alors pas disponibles lors de la prédiction et la courbe <em>ROC</em>, présentée ci-dessous, ne peut pas être évaluée et représentée.</p>
+
+<pre><code class="language-python">y_test_svm_predit = clf_svm.predict(X_test_standardise)
+print(y_test_svm_predit.shape)
+</code></pre>
+
+<p></div></p>
+
+<p><ins>Exercice 9</ins> : Même si on ne peut pas interpréter le pouvoir explicatif d&rsquo;une variable sur la variable cible, on peut toutefois s&rsquo;intéresser à l&rsquo;importance de chaque variable dans le modèle de prédiction. Représenter les coefficients par ordre décroissant.</p>
+
+<script>
+function myFunction9() {
+    var x = document.getElementById("App9");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction9()">Voir résultat</button></p>
+
+<div id="App9" hidden>
+<div></div>
+
+<pre><code class="language-python">coef = clf_svm.coef_[0]
+nb_features=len(coef)
+feature_names=['P15_NSCOL15P_DIPLMIN', 'P15_NSCOL15P_CAPBEP', 'P15_NSCOL15P_SUP', 'C15_FAMMONO', 'C15_COUPSENF', 'P15_RPMAISON', 'P15_RP_M30M2', 'P15_RP_3060M2', 'P15_RP_80100M2', 'P15_RP_100M2P']
+top_coefficients = list(np.argsort(coef))
+</code></pre>
+
+<pre><code class="language-python"># Représentation graphique des résultats 
+plt.figure(figsize=(20, 8))
+colors = ['red' if c &lt; 0 else 'blue' for c in coef[top_coefficients]]
+plt.barh(np.arange(nb_features), coef[top_coefficients], color=colors, height=0.8)
+feature_names = np.array(feature_names)
+plt.yticks(np.arange(nb_features), feature_names[top_coefficients], rotation=0, ha='right')
+plt.show()
+</code></pre>
+
+<p>Ce code s&rsquo;applique seulement au SVM avec un noyau linéaire. Par exemple, pour une partie des méthodes, comme les forêts aléatoires, une variable <em>importance</em> est directement disponible dans <em>scikit-learn</em>. Vous pouvez trouver quasi systématiquement sur internet le code nécessaire pour observer et représenter l&rsquo;importance des prédicteurs.
+</div></p>
+
+<h4 id="3-evaluer-et-comparer-les-performances-des-algorithmes">3) Evaluer et comparer les performances des algorithmes</h4>
+
+<p>La précision et le rappel (\textit{recall} en anglais) constituent deux critères qui mettent en exergue les capacités d&rsquo;un classifieur. Ils sont notamment pertinents dans le cas où les classes sont déséquilibrées.</p>
+
+<p>La <strong>précision</strong> analyse la qualité du prédicteur pour les observations détectées comme positives par le modèle. Pour nos modèles, la précision correspond donc au nombre de villes où plus de 50 personnes sont réellement redevables et qui sont détectés par le modèle rapporté au nombre total de villes détectées par le modèle (à tort et à raison) comme habritant plus de 50 redevables de l&rsquo;<em>isf</em>. Elle se déduit de la formule suivante :</p>
+
+<p>$$
+\text{Précision } = \frac{\text{Nombre de vrais positifs}}{\text{Nombre de vrais positifs } + \text{ Nombre de faux positifs}}
+$$</p>
+
+<p>De façon complémentaire, le <strong>rappel</strong>, aussi appelé la <strong>sensibilité</strong>, se focalise sur la qualité du modèle pour la classification des observations positives. Dans notre exemple, le rappel désigne la part des villes comme ayant plus de 50 redevables en réalité et selon le modèle par rapport à l&rsquo;ensemble des villes où plus de 50 personnes sont réellement redevables. Le rappel se calcule donc selon la formule suivante :</p>
+
+<p>$$
+\text{Rappel }=\frac{\text{Nombre de vrais positifs}}{\text{Nombre de vrais positifs } + \text{ Nombre de faux négatifs}}
+$$</p>
+
+<p>\paragraph{}Une troisième notion, complémentaire à la sensibilité, peut être utilisée. Si la sensibilité s&rsquo;intéresse aux observations avec un label effectif positif, la <strong>spécificité</strong> étudie les observations avec un label effectif nul. Parmi ces derniers, c&rsquo;est-à-dire parmi les villes où moins de 50 personnes sont réellement redevables par exemple, la spécificité étudie la probabilité d&rsquo;être aussi considérées comme tel par le modèle de prédiction.</p>
+
+<p>$$
+\text{Spécificité }=\frac{\text{Nombre de vrais négatifs}}{\text{Nombre de vrais négatifs } + \text{ Nombre de faux positifs}}
+$$</p>
+
+<p><ins>Exercice 9</ins> : Evaluer les performances des deux modèles en affichant leur matrice de confusion</p>
+
+<script>
+function myFunction10() {
+    var x = document.getElementById("App10");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction10()">Voir résultat</button></p>
+
+<div id="App10" hidden>
+<div></div>
+
+<p>On peut utiliser la fonction fournissant la matrice de confusion brute qui est détaillée dans ce <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html">lien</a>. Afin d&rsquo;obtenir un résultat plus visuel, on peut reprendre la <a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py">fonction</a> proposée sur le site de <em>scikit-learn</em> pour mettre en forme cette matrice. Le code de cette fonction est présentée ci-dessous :</p>
+
+<pre><code class="language-python">from sklearn.metrics import confusion_matrix
+from sklearn.utils.multiclass import unique_labels
+def plot_confusion_matrix(y_true, y_pred, classes,
+                          normalize=False,
+                          title=None,
+                          cmap=plt.cm.Blues):
+    &quot;&quot;&quot;
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    &quot;&quot;&quot;
+    if not title:
+        if normalize:
+            title = 'Normalized confusion matrix'
+        else:
+            title = 'Confusion matrix, without normalization'
+
+    # Compute confusion matrix
+    cm = confusion_matrix(y_true, y_pred)
+    # Only use the labels that appear in the data
+    classes = classes[unique_labels(y_true, y_pred)]
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print(&quot;Normalized confusion matrix&quot;)
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+
+    fig, ax = plt.subplots()
+    im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
+    ax.figure.colorbar(im, ax=ax)
+    # We want to show all ticks...
+    ax.set(xticks=np.arange(cm.shape[1]),
+           yticks=np.arange(cm.shape[0]),
+           # ... and label them with the respective list entries
+           xticklabels=classes, yticklabels=classes,
+           title=title,
+           ylabel='True label',
+           xlabel='Predicted label')
+
+    # Rotate the tick labels and set their alignment.
+    plt.setp(ax.get_xticklabels(), rotation=45, ha=&quot;right&quot;,
+             rotation_mode=&quot;anchor&quot;)
+
+    # Loop over data dimensions and create text annotations.
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            ax.text(j, i, format(cm[i, j], fmt),
+                    ha=&quot;center&quot;, va=&quot;center&quot;,
+                    color=&quot;white&quot; if cm[i, j] &gt; thresh else &quot;black&quot;)
+    fig.tight_layout()
+    return ax
+</code></pre>
+
+<p>On applique cette fonction pour obtenir la matrice de confusion dans le cas de la régression logistique :</p>
+
+<pre><code class="language-python">plot_confusion_matrix(y_test, y_test_logistic_predit, classes=np.unique(y_test),
+                      title='Confusion matrix, without normalization')
+</code></pre>
+
+<p>On l&rsquo;applique ensuite au cas du SVM :</p>
+
+<pre><code class="language-python">plot_confusion_matrix(y_test, y_test_svm_predit, classes=np.unique(y_test),
+                      title='Confusion matrix, without normalization')
+</code></pre>
+
+<p></div></p>
+
+<p>Dans le cadre d&rsquo;une classification binaire, la <strong>courbe ROC</strong> et l&rsquo;<strong>aire sous la courbe</strong> associée (Area Under the Cruve - <strong>AUC</strong>) fournissent une information plus précise de la qualité du modèle que le simple taux d&rsquo;erreur ou que la matrice de confusion. En effet, ces critères utilisent un seuil fixe, par défaut 0,5, selon lequel l&rsquo;observation est classée ou non dans la catégorie des villes où plus de 50 personnes sont redevables de l&rsquo;<em>isf</em> par exemple. A l&rsquo;inverse, la courbe ROC représente la proportion de vrais positifs, par exemple des villes où plus de 50 personnes sont réellement redevables de l&rsquo;<em>isf</em> et détectées à raison par le modèle, selon la proportion de faux positifs, c&rsquo;est-à-dire les villes où moins de 50 personnes sont redevables de l&rsquo;<em>isf</em> mais où le modèle détecte l&rsquo;inverse. Comme nous souhaitons minimiser le risque de première espèce qui correspond au taux de faux positifs tout en maximisant la puissance du test égal au taux de vrais positifs, la courbe ROC idéale augmente très rapidement vers 1 puis est égale à 1 pour tous les taux de vrais positifs différents de 0 (\og coude \fg{}). Cette situation indique que, pour un seuil donné, le modèle ne commet pas d&rsquo;erreur.</p>
+
+<p>L&rsquo;AUC mesure la performance du modèle par rapport à cette situation idéale. Ainsi, plus l&rsquo;AUC est grand, meilleur est le modèle. En effet, une AUC élevée indique que lorsque le seuil de décision diminue, le modèle détecte plus rapidement une proportion forte de villes où plus de 50 personnes sont redevables de l&rsquo;<em>isf</em> et une faible proportion de villes où moins de 50 personnes sont redevables de l&rsquo;<em>isf</em>.</p>
+
+<p><ins>Exercice 11</ins> : Comparer les deux modèles, notamment à l&rsquo;aide de leurs courbes ROC</p>
+
+<script>
+function myFunction11() {
+    var x = document.getElementById("App11");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction11()">Voir résultat</button></p>
+
+<div id="App11" hidden>
+<div></div>
+
+<pre><code class="language-python"># On commence par prédire non plus le label mais la probabilité d'appartenance à un label
+from sklearn.metrics import roc_curve, auc
+probas_logistic = clf_logistic.predict_proba(X_test_standardise)
+probas_svm = clf_svm.predict_proba(X_test_standardise)
+</code></pre>
+
+<pre><code class="language-python"># Valeurs de la courbe ROC pour la régression logistique et le SVM
+from sklearn import metrics
+fpr_logistic, tpr_logistic, thresholds_logistic = metrics.roc_curve(y_test, np.transpose(probas_logistic)[1])
+fpr_svm, tpr_svm, thresholds_svm = metrics.roc_curve(y_test, np.transpose(probas_svm)[1])
+</code></pre>
+
+<pre><code class="language-python"># Valeurs des aires sous la courbe
+roc_auc_logistic = auc(fpr_logistic, tpr_logistic)
+roc_auc_svm = auc(fpr_svm, tpr_svm)
+</code></pre>
+
+<pre><code class="language-python">%matplotlib inline
+plt.figure(figsize=(9,7))
+lw = 1.5
+plt.plot(fpr_logistic, tpr_logistic, color='magenta',
+         lw=lw, label='Pour la régression logistique (area = %0.2f)' % roc_auc_logistic)
+plt.plot(fpr_svm, tpr_svm, color='darkorange',
+         lw=lw, label='Pour un SVM (area = %0.2f)' % roc_auc_svm)
+plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('Taux de faux positifs')
+plt.ylabel('Taux de vrais positifs')
+plt.title('Courbes ROC des deux classifications')
+plt.legend(loc=&quot;lower right&quot;)
+plt.show()
+</code></pre>
+
+<p></div></p>
+
+<p>Pour réaliser ces premières prédictions, on s&rsquo;est contenté de prédicteurs socio-démographiques. Aucune variable précisant la localisation géographique a été introduite, ignorant alors l&rsquo;existence d&rsquo;autocorrélation spatiale, pourtant suggérée par la littérature sur la ségrégation spatiale. Cette omission (certes volontaire) n&rsquo;introduit pas de biais environnemental comme cela serait le cas dans le cadre d&rsquo;un modèle explicatif mais elle peut réduire le pouvoir prédictif de notre modèle.</p>
+
+<p><ins>Exercice 12</ins> : Même si dans notre cas, l&rsquo;apport de la localisation géographique n&rsquo;est pas forcément facilement démontrable car la base de données est restreinte en raison du ciblage des villes de plus de 20000 habitants et par conséquent l&rsquo;échantillon de test est de petite dimension avec de nombreuses espaces géographiques non présents, représenter la carte des résidus par département.</p>
+
+<script>
+function myFunction12() {
+    var x = document.getElementById("App12");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction12()">Voir résultat</button></p>
+
+<div id="App12" hidden>
+<div></div>
+
+<pre><code class="language-python"># Comme précisé dans le chapitre sur la manipulation de données géographiques, on commence par installer les packages nécessaires.
+!pip install geopandas mapclassify descartes pysal
+</code></pre>
+
+<pre><code class="language-python"># On importe aussi le fond de cartes départemental et on le charge dans une table dep.
+import zipfile
+with zipfile.ZipFile('dep_francemetro_2018.zip', 'r') as zip_ref:
+    zip_ref.extractall()
+
+import geopandas as gpd
+dep = gpd.read_file('dep_francemetro_2018.shp')
+</code></pre>
+
+<pre><code class="language-python"># On reconstitue la base restreinte à l'échantillon de test contenant l'erreur de prédiction
+ech_test=tableModelisation.loc[list(X_test.index),:]
+ech_test['y_test_logistic_predit']=y_test_logistic_predit
+ech_test['erreur']=np.abs(ech_test['plus50']-ech_test['y_test_logistic_predit'])
+</code></pre>
+
+<pre><code class="language-python"># On agrège les données par département. Etant donné le souhait de mettre en évidence les départements où une erreur de prédiction a été commise, on choisit de considérer le département en erreur dès qu'une erreur a été commise pour une commune au sein du département.
+ech_test_parDep=ech_test.groupby('dep', as_index=False)['erreur'].max()
+</code></pre>
+
+<pre><code class="language-python"># On fusionne les données avec le fond de cartes.
+cartes = pd.merge(dep, ech_test_parDep, left_on = &quot;code&quot;, right_on=&quot;dep&quot;, how=&quot;right&quot;)
+</code></pre>
+
+<pre><code class="language-python"># On représente ensuite les erreurs par département.
+cartes.plot('erreur', legend=True, categorical=True, figsize=(8, 8))
+</code></pre>
+
+<p>On constate une légère corrélation spatiale des erreurs suggérant l&rsquo;intérêt d&rsquo;introduire une variable géographique. Attention, dans notre exemple, en raison du choix de la problématique, nos données sont très restreintes et les résultats de cette analyse sont potentiellement sur-interprétés. Cette question met surtout l&rsquo;accent sur l&rsquo;importance d&rsquo;observer les résidus, et notamment géographiquement, afin de vérifier que des prédicteurs pertinents n&rsquo;ont pas été omis.
+</div></p>
+
+<p>Vous pouvez alors refaire les modèles en introduisant la variable de département. Attention, celle-ci n&rsquo;est pas une variable quantitative ordonnée, il faut donc la discrétiser. Le risque est d&rsquo;introduire un très grand nombre d&rsquo;indicatrices. Peut-être est-il alors pertinent de régulariser le modèle.</p>
+
+<p><strong>Besoin d&rsquo;un résumé du processus avant de passer à la régression ?</strong></p>
+
+<p align="center">
+<a href="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf">
+<img src="../../images/ScikitLearnCheatSheetPython.jpg" alt="ScikitLearnCheatSheetPython" width="1200" height="700"/>
+</a>
+</p>
+
+<h2 id="ii-expérimenter-la-prédiction-d-une-variable-quantitative-un-problème-de-régression">II) Expérimenter la prédiction d&rsquo;une variable quantitative : un problème de régression</h2>
+
+<p>On va maintenant se restreindre aux villes de plus de 20 000 habitants dans lesquelles plus de 50 personnes sont redevables de l&rsquo;<em>isf</em>. Cela revient donc à se restreindre aux champs de la base <em>isf</em> manipulée dans les tutoriels précédents. On testera ici simplement un modèle de régression linéaire mais vous pouvez évidemment tester d&rsquo;autres méthodes de régression si vous avez le temps !</p>
+
+<p><ins>Exercice 13</ins> : Evaluer un modèle de régression pour prédire le nombre de redevables dans cette base restreinte puis prédire ce nombre sur un échantillon de test.</p>
+
+<script>
+function myFunction13() {
+    var x = document.getElementById("App13");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction13()">Voir résultat</button></p>
+
+<div id="App13" hidden>
+<div></div>
+
+<p>Vous pourriez réappliquer le code de la partie précédente en vous référant à la documentation <em>scikit-learn</em> sur la <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html">régression linéaire</a>.</p>
+
+<p>Il est aussi possible d&rsquo;inclure les différentes étapes jusqu&rsquo;à la prédiction au sein d&rsquo;une seule chaîne de traitement, dite <em>pipeline</em>. Pour la mettre en place, vous pouvez consulter la documentation sur les <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">pipelines</a> dans <em>scikit-learn</em>.</p>
+
+<pre><code class="language-python">from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(plus50[['P15_NSCOL15P_DIPLMIN', 'P15_NSCOL15P_CAPBEP', 'P15_NSCOL15P_SUP', 'C15_FAMMONO', 'C15_COUPSENF', 'P15_RPMAISON', 'P15_RP_M30M2', 'P15_RP_3060M2', 'P15_RP_80100M2', 'P15_RP_100M2P']], plus50['nombre de redevables'], test_size=0.33, random_state=42)
+</code></pre>
+
+<pre><code class="language-python">from sklearn.pipeline import Pipeline
+scaler = preprocessing.StandardScaler()
+reg = LinearRegression()
+pipe = Pipeline(steps=[('scaler', scaler), ('reg', reg)])
+reg_standard=pipe.fit(X_train, y_train)
+</code></pre>
+
+<pre><code class="language-python"># On évalue le R² du modèle
+reg_standard.score(X_test, y_test)
+</code></pre>
+
+<p></div></p>
+<div class="edit-meta">Last updated on 18 Mar 2019 / Published on 18 Mar 2019<br></div><nav class="pagination"><a class="nav nav-prev" href="/explorer/chapter3/" title="Chapitre 3 : Manipuler et visualiser des données géographiques"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Chapitre 3 : Manipuler et visualiser des données géographiques</a>
+<a class="nav nav-next" href="/project/" title="Réaliser un mini projet">Next - Réaliser un mini projet <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://JulieDjidji.github.io/">Home</a></li>
+
+<li class=""><a href="/getting-started/">Préparer le terrain : installer python</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class=""><a href="/fondations/">Poser les fondations</a>
+<ul class="">
+
+<li class=""><a href="/fondations/chapter1/">Chapitre 1 : La syntaxe</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class=""><a href="/fondations/chapter2/">Chapitre 2 : Quels objets en python ?</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class=""><a href="/fondations/chapter3/">Chapitre 3 : Lecture, écriture et fermeture des fichiers</a>
+</li>
+
+<li class=""><a href="/fondations/chapter4/">Chapitre 4 : Les packages en python</a>
+</li>
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/explorer/">Explorer les données</a>
+<ul class="sub-menu">
+
+<li class=""><a href="/explorer/chapter1/">Chapitre 1 : Manipuler les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter2/">Chapitre 2 : Visualiser les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter3/">Chapitre 3 : Manipuler et visualiser des données géographiques</a>
+</li>
+
+<li class="parent active"><a href="/explorer/chapter4/">Chapitre 4 : Modéliser</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/project/">Réaliser un mini projet</a>
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

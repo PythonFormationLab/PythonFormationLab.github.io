@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Les sets - Python site</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://JulieDjidji.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://JulieDjidji.github.io/fondations/chapter2/4-sets/">
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Python site</h1>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/about/">Références python</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Les sets</h1><p>Un ensemble (<em>set</em>) est une collection non ordonnée d&rsquo;éléments <strong>uniques</strong>.</p>
+
+<p><ins><strong>Exercice 1</strong></ins> : Reprendre le dernier exemple créé dans la <a href="/fondations/chapter3/2-listes">section sur les listes</a>, créer et convertir cette liste en ensemble. Que constatez-vous ?</p>
+
+<script>
+function myFunction1() {
+    var x = document.getElementById("exercice1");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction1()">Voir résultat</button></p>
+
+<div id="exercice1" hidden>
+<div></div>
+
+<pre><code class="language-python">set([i**2 for i in [1,2,3,4,5]]+[i**2 for i in [1,2,3,4,5]])
+</code></pre>
+
+<p>On constate que les éléments dupliqués sont supprimés. Cette fonctionnalité des ensembles peut faciliter la manipulation de données lorsqu&rsquo;on souhaite obtenir les différentes modalités d&rsquo;une variable par exemple. On verra dans la section sur la <a href="/explorer/chapter1/">manipulation de données</a> qu&rsquo;il est aussi possible de récuper la sous-liste des éléments uniques d&rsquo;une liste avec le package <em>numpy</em> avec la commande : <em>np.unique</em>.
+</div></p>
+
+<p><ins><strong>Exercice 2</strong></ins> : Créer deux ensembles : le premier constitué des cinq premières lettres de l&rsquo;alphabet et le second des dix premières lettres de l&rsquo;alphabet</p>
+
+<script>
+function myFunction2() {
+    var x = document.getElementById("exercice2");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction2()">Voir résultat</button></p>
+
+<div id="exercice2" hidden>
+<div></div>
+
+<pre><code class="language-python">import string
+ens1=set(string.ascii_lowercase[0:5])
+ens2=set(string.ascii_lowercase[0:10])
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 3</strong></ins> : Vérifier que ces deux ensembles ne sont pas disjoints</p>
+
+<script>
+function myFunction3() {
+    var x = document.getElementById("exercice3");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction3()">Voir résultat</button></p>
+
+<div id="exercice3" hidden>
+<div></div>
+
+<pre><code class="language-python">ens1.isdisjoint(ens2)
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 4</strong></ins> : Afficher l&rsquo;intersection de ces deux ensembles</p>
+
+<script>
+function myFunction4() {
+    var x = document.getElementById("exercice4");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction4()">Voir résultat</button></p>
+
+<div id="exercice4" hidden>
+<div></div>
+
+<pre><code class="language-python">ens1.intersection(ens2)
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 5</strong></ins> : Afficher la différence entre ces deux ensembles</p>
+
+<script>
+function myFunction5() {
+    var x = document.getElementById("exercice5");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction5()">Voir résultat</button></p>
+
+<div id="exercice5" hidden>
+<div></div>
+
+<pre><code class="language-python">ens1.difference(ens2)
+</code></pre>
+
+<p></div></p>
+<div class="edit-meta">Last updated on 18 Mar 2019 / Published on 18 Mar 2019<br></div><nav class="pagination"><a class="nav nav-prev" href="/fondations/chapter2/3-dictionnaires/" title="Les dictionnaires"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Les dictionnaires</a>
+<a class="nav nav-next" href="/fondations/chapter2/5-generateurs/" title="Les itérateurs et les générateurs">Next - Les itérateurs et les générateurs <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://JulieDjidji.github.io/">Home</a></li>
+
+<li class=""><a href="/getting-started/">Préparer le terrain : installer python</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/fondations/">Poser les fondations</a>
+<ul class="sub-menu">
+
+<li class=""><a href="/fondations/chapter1/">Chapitre 1 : La syntaxe</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/fondations/chapter2/">Chapitre 2 : Quels objets en python ?</a>
+<ul class="sub-menu">
+</ul>
+  
+</li>
+
+<li class=""><a href="/fondations/chapter3/">Chapitre 3 : Lecture, écriture et fermeture des fichiers</a>
+</li>
+
+<li class=""><a href="/fondations/chapter4/">Chapitre 4 : Les packages en python</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/explorer/">Explorer les données</a>
+<ul class="">
+
+<li class=""><a href="/explorer/chapter1/">Chapitre 1 : Manipuler les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter2/">Chapitre 2 : Visualiser les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter3/">Chapitre 3 : Manipuler et visualiser des données géographiques</a>
+</li>
+
+<li class=""><a href="/explorer/chapter4/">Chapitre 4 : Modéliser</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/project/">Réaliser un mini projet</a>
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
