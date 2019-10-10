@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chapitre 1 : La syntaxe on Python site</title>
+    <link>https://JulieDjidji.github.io/fondations/chapter1/</link>
+    <description>Recent content in Chapitre 1 : La syntaxe on Python site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Mar 2019 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://JulieDjidji.github.io/fondations/chapter1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>1 - Les fonctions</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter1/1-fonctions/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter1/1-fonctions/</guid>
+      <description>Pour comprendre l&amp;rsquo;indentation, prenons l&amp;rsquo;exemple des fonctions. Pour écrire sa propre fonction, il faut respecter les conventions suivantes :
+ il faut définir la fonction avec le terme def et la ligne contenant cette instruction se termine par un deux-points selon ce modèle : def nomFonction(arg1, &amp;hellip;): des parenthèses après le nom de la fonction contiennent les paramètres de la fonction. En cas d&amp;rsquo;absence de paramètres, les parenthèses restent vides. il n&amp;rsquo;y a pas de contrainte sur le nom des fonctions, à l&amp;rsquo;exception de mots ayant déjà une signification (par exemple, list correspond déjà à une fonction python).</description>
+    </item>
+    
+    <item>
+      <title>2 - Les conditions if - elif - else</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter1/2-ifthenelse/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter1/2-ifthenelse/</guid>
+      <description>Comme dans les autres langages de programmation, des conditions peuvent être effectuées en python en utilisant if-elif-else. Les instructions elif et else sont évidemment facultatives. Comme pour les fonctions, chaque ligne associée à une condition se termine par un deux-points. La notation habituelle de ces conditions est :
+if condition1: Bloc d&#39;instruction elif condition2: Bloc d&#39;instruction else : Bloc d&#39;instruction  Une condition correspond à un booléen. La condition x==2 vaut True et est donc respectée seulement si x est effectivement égal à 2 sinon elle vaut False et le bloc d&amp;rsquo;instruction associée à cette condition n&amp;rsquo;est pas exécuté.</description>
+    </item>
+    
+    <item>
+      <title>3 - Les boucles</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter1/3-boucles/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter1/3-boucles/</guid>
+      <description>Boucle for Difficile d&amp;rsquo;aborder les boucles sans évoquer a minima les listes. Pas de panique, on reviendra plus loin sur la manipulation des listes. Prenons pour l&amp;rsquo;instant une liste [0,1,2,3,4,5]. Ecrivons une première boucle for qui à chaque valeur de la liste, affiche son carré.
+for n in [0,1,2,3,4,5]: print(n**2, &#39; &#39;, end=&#39;&#39;)  Exemple: écrire une boucle qui pour les valeurs de 0 à 10 affiche un message qui indique si la valeur est paire ou impaire.</description>
+    </item>
+    
+    <item>
+      <title>4 - Contrôler ses codes en termes de mémoire et de temps d&#39;exécution</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter1/4-occupationm%C3%A9moire/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter1/4-occupationm%C3%A9moire/</guid>
+      <description>Afin de réaliser des codes efficaces, il peut être utile de mesurer le temps d&amp;rsquo;exécution d&amp;rsquo;une instruction ou d&amp;rsquo;évaluer l&amp;rsquo;occupation mémoire. Pour cela, vous pouvez recourir aux commandes magiques suivantes, notamment présentées dans le livre Python Data Science Handbook dont un résumé est disponible sous ce lien :
+ %timeit pour évaluer le temps d&amp;rsquo;exécution d&amp;rsquo;une instruction %prun pour profiler un code, c&amp;rsquo;est-à-dire chronométrer le temps d&amp;rsquo;exécution de chaque ligne de code %memit pour mesurer l&amp;rsquo;occupation mémoire maximale nécessaire lors d&amp;rsquo;une instruction  Les commandes magiques permettent d&amp;rsquo;automatiser des tâches courantes et la liste de ces commandes peut d&amp;rsquo;ailleurs être affichée dans le notebook avec la commande %lsmagic ou en consultant la documentation de IPython via ce lien ou ce lien.</description>
+    </item>
+    
+  </channel>
+</rss>

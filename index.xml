@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python site</title>
+    <link>https://JulieDjidji.github.io/</link>
+    <description>Recent content on Python site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Mar 2019 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://JulieDjidji.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installation en local</title>
+      <link>https://JulieDjidji.github.io/getting-started/installation/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/getting-started/installation/</guid>
+      <description>Pour installer python en local sur son ordinateur, nous vous conseillons d&amp;rsquo;installer la distribution anaconda disponible sur le site d&amp;rsquo;Anaconda.
+ Sous Windows, il suffit de télécharger l&amp;rsquo;exécutable puis de l&amp;rsquo;exécuter. Le site vous détaille par exemple la procédure à suivre. Sous Linux, le tutoriel permet par exemple d&amp;rsquo;installer anaconda.  Mais qu&amp;rsquo;est ce qu&amp;rsquo;anaconda ? Anaconda est une distribution Python. A son installation, Anaconda installe par défaut :</description>
+    </item>
+    
+    <item>
+      <title>Les principaux types de données : entiers, flottants, chaînes de caractère</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter2/1-typessimples/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter2/1-typessimples/</guid>
+      <description>Quelques exercices de manipulation Exercice 1 : afficher le type de x pour x=3, x=&amp;ldquo;test&amp;rdquo; et x=3.5
+ function myFunction1() { var x = document.getElementById(&#34;exercice1&#34;); if (x.style.display !== &#34;block&#34;) { x.style.display = &#34;block&#34;; } else { x.style.display = &#34;none&#34;; } }  Voir résultat
+ x=3 type(x)  x=&#39;test&#39; type(x)  x=3.5 type(x)  
+Exercice 2 : Concaténer les chaînes de caractères suivantes &amp;ldquo;Les deux formateurs sont : &amp;ldquo;, &amp;ldquo;Julie&amp;rdquo;, &amp;ldquo; et &amp;ldquo;, &amp;ldquo;Laurent&amp;rdquo;</description>
+    </item>
+    
+    <item>
+      <title>Le premier objet python : les listes</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter2/2-listes/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter2/2-listes/</guid>
+      <description>Une liste est une collection ordonnée d&amp;rsquo;élements qui peuvent être de types différents (combinaison possible de listes, de dictionnaires, d&amp;rsquo;éléments numériques et d&amp;rsquo;éléments caractères).
+Création et manipulation d&amp;rsquo;une liste    Action Fonction python     Création d&amp;rsquo;une liste [] ou list()   Test de la présence d&amp;rsquo;un élément dans une liste x in liste   Accès à un élément liste[i]   Accès à plusieurs éléments liste[i:j]   Minimum de la liste min(liste)   Maximum de la liste max(liste)   Nombre d&amp;rsquo;éléments d&amp;rsquo;une liste len(liste)   Nombre d’occurrence de l&amp;rsquo;élément x dans la liste liste.</description>
+    </item>
+    
+    <item>
+      <title>Utiliser python à l’Insee</title>
+      <link>https://JulieDjidji.github.io/getting-started/configuration/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/getting-started/configuration/</guid>
+      <description>En interne à l&amp;rsquo;Insee, la plateforme innovation permet d&amp;rsquo;obtenir python en un clic. Pour cela, il suffit de :
+ aller sur Onyxia se connecter (bouton login en haut à droite) ouvrir le catalogue, sélectionner jupyter et déployer le service (schéma ci-dessous) il est possible d&amp;rsquo;activer la configuration Git (onglet Git) cliquer finalement sur l&amp;rsquo;icone Créer le service  Pour lancer le service adapté pour la formation, il faut cliquer sur le lien suivant :</description>
+    </item>
+    
+    <item>
+      <title>Les dictionnaires</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter2/3-dictionnaires/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter2/3-dictionnaires/</guid>
+      <description>Un dictionnaire est une liste qui à chaque clé associe une valeur. Il prend la forme suivante :
+{&#39;clé1&#39;: &#39;valeur1&#39;, &#39;clé2&#39;: &#39;valeur2&#39;} L&amp;rsquo;indexation (présence d&amp;rsquo;une clé) facilite la recherche ou la modification d&amp;rsquo;une valeur. Contrairement aux listes, en raison du principe d&amp;rsquo;indexation, le temps nécessaire à la recherche d&amp;rsquo;un élément (avec l&amp;rsquo;opérateur in) ne dépend pas de la longueur de l&amp;rsquo;objet.
+Voici les principales fonctions pour manipuler les dictionnaires :</description>
+    </item>
+    
+    <item>
+      <title>Mais quelle version de python, ai-je installé ?</title>
+      <link>https://JulieDjidji.github.io/getting-started/versioninstallee/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/getting-started/versioninstallee/</guid>
+      <description>import sys print(sys.version)  On peut afficher le répertoire en cours avec la commande suivante :
+import os os.getcwd()  </description>
+    </item>
+    
+    <item>
+      <title>Les sets</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter2/4-sets/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter2/4-sets/</guid>
+      <description>Un ensemble (set) est une collection non ordonnée d&amp;rsquo;éléments uniques.
+Exercice 1 : Reprendre le dernier exemple créé dans la section sur les listes, créer et convertir cette liste en ensemble. Que constatez-vous ?
+ function myFunction1() { var x = document.getElementById(&#34;exercice1&#34;); if (x.style.display !== &#34;block&#34;) { x.style.display = &#34;block&#34;; } else { x.style.display = &#34;none&#34;; } }  Voir résultat
+ set([i**2 for i in [1,2,3,4,5]]+[i**2 for i in [1,2,3,4,5]])  On constate que les éléments dupliqués sont supprimés.</description>
+    </item>
+    
+    <item>
+      <title>Les itérateurs et les générateurs</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter2/5-generateurs/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter2/5-generateurs/</guid>
+      <description>On utilise régulièrement des itérables, c&amp;rsquo;est-à-dire des séquences que nous parcourons telles que des listes ou des dictionnaires, pour effectuer itérativement des actions à l&amp;rsquo;aide d&amp;rsquo;une boucle for. Or, le contenu de ces itérables, qui peut pourtant occuper une place importante en mémoire, n&amp;rsquo;est utile que ponctuellement pour l&amp;rsquo;action à effectuer lors de l&amp;rsquo;itération associée à sa valeur. Avant et après l&amp;rsquo;itération i, la valeur de l&amp;rsquo;itérable associée à cette itération i ne sert à rien.</description>
+    </item>
+    
+    <item>
+      <title>1 - Les fonctions</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter1/1-fonctions/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter1/1-fonctions/</guid>
+      <description>Pour comprendre l&amp;rsquo;indentation, prenons l&amp;rsquo;exemple des fonctions. Pour écrire sa propre fonction, il faut respecter les conventions suivantes :
+ il faut définir la fonction avec le terme def et la ligne contenant cette instruction se termine par un deux-points selon ce modèle : def nomFonction(arg1, &amp;hellip;): des parenthèses après le nom de la fonction contiennent les paramètres de la fonction. En cas d&amp;rsquo;absence de paramètres, les parenthèses restent vides. il n&amp;rsquo;y a pas de contrainte sur le nom des fonctions, à l&amp;rsquo;exception de mots ayant déjà une signification (par exemple, list correspond déjà à une fonction python).</description>
+    </item>
+    
+    <item>
+      <title>2 - Les conditions if - elif - else</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter1/2-ifthenelse/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter1/2-ifthenelse/</guid>
+      <description>Comme dans les autres langages de programmation, des conditions peuvent être effectuées en python en utilisant if-elif-else. Les instructions elif et else sont évidemment facultatives. Comme pour les fonctions, chaque ligne associée à une condition se termine par un deux-points. La notation habituelle de ces conditions est :
+if condition1: Bloc d&#39;instruction elif condition2: Bloc d&#39;instruction else : Bloc d&#39;instruction  Une condition correspond à un booléen. La condition x==2 vaut True et est donc respectée seulement si x est effectivement égal à 2 sinon elle vaut False et le bloc d&amp;rsquo;instruction associée à cette condition n&amp;rsquo;est pas exécuté.</description>
+    </item>
+    
+    <item>
+      <title>3 - Les boucles</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter1/3-boucles/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter1/3-boucles/</guid>
+      <description>Boucle for Difficile d&amp;rsquo;aborder les boucles sans évoquer a minima les listes. Pas de panique, on reviendra plus loin sur la manipulation des listes. Prenons pour l&amp;rsquo;instant une liste [0,1,2,3,4,5]. Ecrivons une première boucle for qui à chaque valeur de la liste, affiche son carré.
+for n in [0,1,2,3,4,5]: print(n**2, &#39; &#39;, end=&#39;&#39;)  Exemple: écrire une boucle qui pour les valeurs de 0 à 10 affiche un message qui indique si la valeur est paire ou impaire.</description>
+    </item>
+    
+    <item>
+      <title>4 - Contrôler ses codes en termes de mémoire et de temps d&#39;exécution</title>
+      <link>https://JulieDjidji.github.io/fondations/chapter1/4-occupationm%C3%A9moire/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/fondations/chapter1/4-occupationm%C3%A9moire/</guid>
+      <description>Afin de réaliser des codes efficaces, il peut être utile de mesurer le temps d&amp;rsquo;exécution d&amp;rsquo;une instruction ou d&amp;rsquo;évaluer l&amp;rsquo;occupation mémoire. Pour cela, vous pouvez recourir aux commandes magiques suivantes, notamment présentées dans le livre Python Data Science Handbook dont un résumé est disponible sous ce lien :
+ %timeit pour évaluer le temps d&amp;rsquo;exécution d&amp;rsquo;une instruction %prun pour profiler un code, c&amp;rsquo;est-à-dire chronométrer le temps d&amp;rsquo;exécution de chaque ligne de code %memit pour mesurer l&amp;rsquo;occupation mémoire maximale nécessaire lors d&amp;rsquo;une instruction  Les commandes magiques permettent d&amp;rsquo;automatiser des tâches courantes et la liste de ces commandes peut d&amp;rsquo;ailleurs être affichée dans le notebook avec la commande %lsmagic ou en consultant la documentation de IPython via ce lien ou ce lien.</description>
+    </item>
+    
+    <item>
+      <title>Références python</title>
+      <link>https://JulieDjidji.github.io/about/</link>
+      <pubDate>Mon, 18 Mar 2019 15:26:15 +0000</pubDate>
+      
+      <guid>https://JulieDjidji.github.io/about/</guid>
+      <description>Voici quelques moocs globaux intéressants pour compléter les références spécifiques indiquées dans les différents chapitres dédiés :
+ L&amp;rsquo;incontournable mooc d&amp;rsquo;Openclassroom : Apprenez à programmer en Python
+ Une multitude de sites comme celui de realpython ou Machine Learning Mastery.
+  N&amp;rsquo;hésitez pas à nous indiquer si vous trouvez d&amp;rsquo;autres tutoriels pertinents !</description>
+    </item>
+    
+  </channel>
+</rss>
