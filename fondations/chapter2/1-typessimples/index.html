@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Les principaux types de données : entiers, flottants, chaînes de caractère - Python site</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://JulieDjidji.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://JulieDjidji.github.io/fondations/chapter2/1-typessimples/">
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Python site</h1>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/about/">Références python</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Les principaux types de données : entiers, flottants, chaînes de caractère</h1>
+
+<h2 id="quelques-exercices-de-manipulation">Quelques exercices de manipulation</h2>
+
+<p><ins><strong>Exercice 1</strong></ins> : afficher le type de x pour x=3, x=&ldquo;test&rdquo; et x=3.5</p>
+
+<script>
+function myFunction1() {
+    var x = document.getElementById("exercice1");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction1()">Voir résultat</button></p>
+
+<div id="exercice1" hidden>
+<div></div>
+
+<pre><code class="language-python">x=3
+type(x)
+</code></pre>
+
+<pre><code class="language-python">x='test'
+type(x)
+</code></pre>
+
+<pre><code class="language-python">x=3.5
+type(x)
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 2</strong></ins> : Concaténer les chaînes de caractères suivantes &ldquo;Les deux formateurs sont : &ldquo;, &ldquo;Julie&rdquo;, &ldquo; et &ldquo;, &ldquo;Laurent&rdquo;</p>
+
+<script>
+function myFunction2() {
+    var x = document.getElementById("exercice2");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction2()">Voir résultat</button></p>
+
+<div id="exercice2" hidden>
+<div></div>
+
+<pre><code class="language-python">&quot;Les deux formateurs sont : &quot;+&quot;Julie&quot;+&quot; et &quot;+&quot;Laurent&quot;
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 3</strong></ins> : Compter le nombre de fois où la lettre e est présente dans la chaîne &ldquo;Je fais un comptage des e.&rdquo;</p>
+
+<script>
+function myFunction3() {
+    var x = document.getElementById("exercice3");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction3()">Voir résultat</button></p>
+
+<div id="exercice3" hidden>
+<div></div>
+
+<pre><code class="language-python">&quot;Je fais un comptage des e.&quot;.count('e')
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 4</strong></ins> : Repérer la première position où la lettre e est présente dans la chaîne &ldquo;Je fais un comptage des e.&rdquo;</p>
+
+<script>
+function myFunction4() {
+    var x = document.getElementById("exercice4");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction4()">Voir résultat</button></p>
+
+<div id="exercice4" hidden>
+<div></div>
+
+<pre><code class="language-python">&quot;Je fais un comptage des e.&quot;.find('e')
+</code></pre>
+
+<p></div></p>
+
+<p><ins><strong>Exercice 5</strong></ins> : Afficher l&rsquo;ensemble des méthodes attachées à la chaîne de caractère &ldquo;Je fais un comptage des e.&rdquo;</p>
+
+<script>
+function myFunction5() {
+    var x = document.getElementById("exercice5");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction5()">Voir résultat</button></p>
+
+<div id="exercice5" hidden>
+<div></div>
+
+<pre><code class="language-python">chaine=&quot;Je fais un comptage des e.&quot;
+dir(chaine)
+</code></pre>
+
+<p></div></p>
+
+<h2 id="astuce-de-formatage-des-chaînes-de-caractères">Astuce de formatage des chaînes de caractères</h2>
+
+<ul>
+<li><strong>Les expressions régulières</strong></li>
+</ul>
+
+<p>Les <strong>expressions régulières</strong> permettent de repérer des schémas ou des ensembles de séquences de caractères semblables dans une chaîne de caractères. Le package <a href="https://docs.python.org/fr/3/library/re.html" target="_blank"><em>re</em></a> regroupe un ensemble d&rsquo;opérations réalisables à partir d&rsquo;expressions réguières. Ce <a href="http://www.xavierdupre.fr/app/teachpyx/helpsphinx/c_regex/regex.html#a-quoi-ca-sert" target="_blank">tutoriel</a> permet par exemple de s&rsquo;exercer à leur utilisation. Certes ? Mais comment puis-je être vérifier que j&rsquo;ai écrit la bonne expression régulière ? Vous pouvez notamment tester les expressions régulières avec ce <a href="https://regex101.com/" target="_blank">site</a>.</p>
+
+<ul>
+<li><strong>f_string</strong></li>
+</ul>
+
+<p>On souhaite parfois insérer des valeurs personnalisées au sein d&rsquo;une chaîne de caractères.</p>
+
+<pre><code class="language-python">nom1=&quot;Julie&quot;
+nom2=&quot;Laurent&quot;
+service = &quot;au SSP-Lab&quot;
+&quot;On s'appelle %s et %s et on travaille %s.&quot;  %  ( nom1 , nom2, service ) 
+</code></pre>
+
+<p>Toutefois, plus le nombre de paramètres personnalisables est élevé, moins le code est lisible. Une solution alternative consiste à recourir à <em>str.format()</em> disponible depuis <em>python 2.6</em>.</p>
+
+<pre><code class="language-python">params  =  { 'nom1' :  'Julie' , 'nom2' : &quot;Laurent&quot; , 'service' : &quot;au SSP-Lab&quot;} 
+&quot;On s'appelle {nom1} et {nom2} et on travaille {service}.&quot; . format ( ** params )
+</code></pre>
+
+<p>Largement plus lisible, cette deuxième solution devient toutefois aussi chargée lorsque le nombre de paramètres augmente fortement. Et depuis <em>python 3.6</em>, sont apparues les <em>f-Strings</em>.</p>
+
+<pre><code class="language-python">f&quot;On s'appelle {nom1} et {nom2} et on travaille {service}.&quot; 
+</code></pre>
+
+<p>Il est possible d&rsquo;effectuer des opérations au sein des chaînes de caractères avec f-strings*.</p>
+
+<pre><code class="language-python">x=4
+f&quot;Nous pouvons faire des calculs : le double de {x} vaut {2 * x}&quot;
+</code></pre>
+
+<p>L&rsquo;<a href="https://realpython.com/python-f-strings/#old-school-string-formatting-in-python" target="_blank">article</a> dédié aux <em>f-strings</em> sur le site <em>realpython</em> détaille les différentes solutions de formatage des chaînes de caractères et les possibilités offertes par f-strings*.</p>
+<div class="edit-meta">Last updated on 18 Mar 2019 / Published on 18 Mar 2019<br></div><nav class="pagination"><a class="nav nav-prev" href="/fondations/chapter2/" title="Chapitre 2 : Quels objets en python ?"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Chapitre 2 : Quels objets en python ?</a>
+<a class="nav nav-next" href="/fondations/chapter2/2-listes/" title="Le premier objet python : les listes">Next - Le premier objet python : les listes <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://JulieDjidji.github.io/">Home</a></li>
+
+<li class=""><a href="/getting-started/">Préparer le terrain : installer python</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/fondations/">Poser les fondations</a>
+<ul class="sub-menu">
+
+<li class=""><a href="/fondations/chapter1/">Chapitre 1 : La syntaxe</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/fondations/chapter2/">Chapitre 2 : Quels objets en python ?</a>
+<ul class="sub-menu">
+</ul>
+  
+</li>
+
+<li class=""><a href="/fondations/chapter3/">Chapitre 3 : Lecture, écriture et fermeture des fichiers</a>
+</li>
+
+<li class=""><a href="/fondations/chapter4/">Chapitre 4 : Les packages en python</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/explorer/">Explorer les données</a>
+<ul class="">
+
+<li class=""><a href="/explorer/chapter1/">Chapitre 1 : Manipuler les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter2/">Chapitre 2 : Visualiser les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter3/">Chapitre 3 : Manipuler et visualiser des données géographiques</a>
+</li>
+
+<li class=""><a href="/explorer/chapter4/">Chapitre 4 : Modéliser</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/project/">Réaliser un mini projet</a>
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

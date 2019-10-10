@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>3 - Les boucles - Python site</title>
+<meta name="generator" content="Hugo 0.40.1" />
+<link href="https://JulieDjidji.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://JulieDjidji.github.io/fondations/chapter1/3-boucles/">
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://JulieDjidji.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://JulieDjidji.github.io/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>Python site</h1>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/about/">Références python</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>3 - Les boucles</h1>
+
+<h2 id="boucle-for">Boucle for</h2>
+
+<p>Difficile d&rsquo;aborder les boucles sans évoquer a minima les listes. Pas de panique, on reviendra plus loin sur la manipulation des listes. Prenons pour l&rsquo;instant une liste [0,1,2,3,4,5]. Ecrivons une première boucle <em>for</em> qui à chaque valeur de la liste, affiche son carré.</p>
+
+<pre><code class="language-python">for n in [0,1,2,3,4,5]:
+    print(n**2, ' ', end='')
+</code></pre>
+
+<p><ins><strong>Exemple</strong></ins>: écrire une boucle qui pour les valeurs de 0 à 10 affiche un message qui indique si la valeur est paire ou impaire. Au sein d&rsquo;un <em>print</em>, plusieurs chaînes peuvent être concaténées simplement en écrivant <em>print(chaine1, chaine2)</em>.</p>
+
+<script>
+function myFunction() {
+    var x = document.getElementById("exemple");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction()">Voir résultat</button></p>
+
+<div id="exemple" hidden>
+<div></div>
+
+<p><ins>Astuce</ins> : On le verra avec la section sur les générateurs mais pour créer une liste entre 0 et 10, on peut simplement utiliser range(11).</p>
+
+<pre><code class="language-python">for i in range(11):
+    if i%2==0:
+        print(i, &quot; est pair&quot;)
+    else:
+        print(i, &quot; est impair&quot;)
+</code></pre>
+
+<p></div></p>
+
+<p>Si les boucles <em>for</em> s&rsquo;effectuent essentiellement sur les listes, il reste néanmoins possible d&rsquo;itérer sur une chaîne de caractères. Le code suivant parcourt la chaîne &lsquo;je code en python&rsquo; et chaque espace est remplacé par &ldquo;_&ldquo;.</p>
+
+<pre><code class="language-python">for car in 'je code en python':
+    if car not in ' ':
+        print(car,  end='')
+    else:
+        print('_',  end='')
+</code></pre>
+
+<pre><code>je_code_en_python
+</code></pre>
+
+<h2 id="boucle-while">Boucle while</h2>
+
+<p>La boucle <em>while</em> permet d&rsquo;exécuter un code tant qu&rsquo;une condition est satisfaite. L&rsquo;exemple précédent qui consiste à afficher le carré de l&rsquo;<em>input</em> pour ce dernier compris dans la liste [0,1,2,3,4,5] peut s&rsquo;écrire :</p>
+
+<pre><code class="language-python">n=0 # Commencer par initialiser la valeur de n
+while n&lt;6:
+    print(n**2, ' ', end='')
+    n+=1
+</code></pre>
+
+<h2 id="instructions-continue-et-break">Instructions <strong>continue</strong> et <strong>break</strong></h2>
+
+<p>Dans les boucles <em>for</em> et <em>while</em>, deux instructions peuvent être très utiles :</p>
+
+<ul>
+<li>l&rsquo;instruction <strong>continue</strong> passe à l&rsquo;itération suivante de la boucle en cours, les autres instructions du bloc sont négligées.</li>
+<li>l&rsquo;instruction <strong>break</strong> stoppe complètement la boucle courante en cours</li>
+</ul>
+
+<pre><code class="language-python"># Pour afficher le carré de l'input si ce dernier est pair (n%2=0)
+for n in [0,1,2,3,4,5]:
+    if n%2==1:
+        continue
+    print(n**2, ' ', end='')
+</code></pre>
+
+<pre><code class="language-python"># Pour afficher le carré de l'input tant que ce dernier n'est pas impair (n%2=1)
+for n in [0,1,2,3,4,5]:
+    if n%2==1:
+        break
+    print(n**2, ' ', end='')
+</code></pre>
+
+<p><ins><strong>Exemple</strong></ins> : écrire une boucle qui pour les valeurs de 5 à 15 calcule la valeur du carré seulement si l&rsquo;input est strictement supérieur à 10</p>
+
+<script>
+function myFunction2() {
+    var x = document.getElementById("exemple2");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction2()">Voir résultat</button></p>
+
+<div id="exemple2" hidden>
+<div></div>
+
+<pre><code class="language-python">for i in range(5,16):
+    if i&gt;10:
+        print('Carré de ', i, ' : ', i**2)
+</code></pre>
+
+<p></div></p>
+
+<h2 id="fonctions-enumerate-et-zip">Fonctions <em>enumerate</em> et <em>zip</em></h2>
+
+<p>On souhaite parfois itérer sur un indice plutôt que sur le contenu de l&rsquo;itérable (liste, chaîne de caractères &hellip;). On peut envisager d&rsquo;utiliser la fonction <em>range</em> entre 0 et le nombre d&rsquo;éléments de l&rsquo;itérable mais cette méthode est peu efficace. La fonction <em>enumerate</em> permet d&rsquo;itérer simultanément sur l&rsquo;indice et la valeur.</p>
+
+<p><ins><strong>Exemple</strong></ins> : Reprenez l&rsquo;exemple de la boucle sur la chaîne de caractères &lsquo;je code en python&rsquo;, afficher à chaque itération l&rsquo;indice et la valeur du caractère</p>
+
+<script>
+function myFunction3() {
+    var x = document.getElementById("exemple3");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction3()">Voir résultat</button></p>
+
+<div id="exemple3" hidden>
+<div></div>
+
+<pre><code class="language-python">for i in enumerate('je code en python'):
+    print(i)
+</code></pre>
+
+<p></div></p>
+
+<p>On peut aussi souhaiter itérer sur deux listes en parallèle. La fonction <em>zip</em> s&rsquo;avère dans ce cas particulièrement utile.</p>
+
+<p><ins><strong>Exemple</strong></ins> : Créer deux listes de longueur identique, itérer simulatanément ces deux listes et afficher à chaque itération le couple de valeurs</p>
+
+<script>
+function myFunction4() {
+    var x = document.getElementById("exemple4");
+    if (x.style.display !== "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
+ 
+
+<p><button onclick="myFunction4()">Voir résultat</button></p>
+
+<div id="exemple4" hidden>
+<div></div>
+
+<pre><code class="language-python">for i, j in zip(range(5), range(5,10)):
+    print((i,j))
+</code></pre>
+
+<p></div></p>
+<div class="edit-meta">Last updated on 18 Mar 2019 / Published on 18 Mar 2019<br></div><nav class="pagination"><a class="nav nav-prev" href="/fondations/chapter1/2-ifthenelse/" title="2 - Les conditions if - elif - else"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - 2 - Les conditions if - elif - else</a>
+<a class="nav nav-next" href="/fondations/chapter1/4-occupationm%C3%A9moire/" title="4 - Contrôler ses codes en termes de mémoire et de temps d&#39;exécution">Next - 4 - Contrôler ses codes en termes de mémoire et de temps d&#39;exécution <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://JulieDjidji.github.io/">Home</a></li>
+
+<li class=""><a href="/getting-started/">Préparer le terrain : installer python</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class="parent"><a href="/fondations/">Poser les fondations</a>
+<ul class="sub-menu">
+
+<li class="parent"><a href="/fondations/chapter1/">Chapitre 1 : La syntaxe</a>
+<ul class="sub-menu">
+</ul>
+  
+</li>
+
+<li class=""><a href="/fondations/chapter2/">Chapitre 2 : Quels objets en python ?</a>
+<ul class="">
+</ul>
+  
+</li>
+
+<li class=""><a href="/fondations/chapter3/">Chapitre 3 : Lecture, écriture et fermeture des fichiers</a>
+</li>
+
+<li class=""><a href="/fondations/chapter4/">Chapitre 4 : Les packages en python</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/explorer/">Explorer les données</a>
+<ul class="">
+
+<li class=""><a href="/explorer/chapter1/">Chapitre 1 : Manipuler les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter2/">Chapitre 2 : Visualiser les données</a>
+</li>
+
+<li class=""><a href="/explorer/chapter3/">Chapitre 3 : Manipuler et visualiser des données géographiques</a>
+</li>
+
+<li class=""><a href="/explorer/chapter4/">Chapitre 4 : Modéliser</a>
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/project/">Réaliser un mini projet</a>
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
